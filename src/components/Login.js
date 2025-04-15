@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { authorize } from '../utils/auth'
 import InfoTooltip from '../components/InfoToolTip'
 import Header from './Header'
-function Login({ setIsLoggedIn, onOpenPopup }) {
+import Popup from './Popup'
+function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -13,7 +14,8 @@ function Login({ setIsLoggedIn, onOpenPopup }) {
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const response = await authorize({ email, password })
+      const credentials = { email, password }
+      const response = await authorize(credentials)
 
       if (response.status === 401 || response.status === 400) {
         throw new Error(`Chamada inválida: ${response.status}`)
@@ -24,13 +26,10 @@ function Login({ setIsLoggedIn, onOpenPopup }) {
       }
       localStorage.setItem('jwt', JSON.stringify(data.token))
       localStorage.setItem('userEmail', email)
-      setIsLoggedIn(true)
+
       navigate('/')
     } catch (error) {
-      onOpenPopup({
-        title: '',
-        children: <InfoTooltip state={false} />
-      })
+      console.log('ERROR - LOGIN:', error)
     }
   }
 

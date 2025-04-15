@@ -2,7 +2,7 @@ import failImage from '../images/failImg.png'
 import successImg from '../images/sucessImg.png'
 export default function InfoTooltip({ state }) {
   return (
-    <>
+    <div className="popup__tooltip-container">
       {state ? (
         <>
           <img
@@ -24,6 +24,6 @@ export default function InfoTooltip({ state }) {
           </p>
         </>
       )}
-    </>
+    </div>
   )
 }

@@ -3,40 +3,41 @@ import { useState } from 'react'
 import { register } from '../utils/auth'
 import InfoTooltip from '../components/InfoToolTip'
 import Header from './Header'
+import Popup from './Popup'
 
-function Register({ onOpenPopup }) {
+function Register() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [hasSubmitSucceeded, setHasSubmitSucceeded] = useState(false)
 
   async function handleSubmit(e) {
     e.preventDefault()
     try {
-      const response = await register({ email, password })
-      if (response.status !== 201) {
-        throw new Error(`Chamada inválida: ${response.status}`)
-      }
-      const info = await response.json()
-      if (!info.data._id || !info.data.email) {
-        throw new Error(`Id não recebido: ${info}`)
-      }
-      onOpenPopup({
-        title: '',
-        children: <InfoTooltip state={true} />
-      })
-      navigate('/signin')
+      const credentials = { email, password }
+      const { ok, data } = await register(credentials)
+      setHasSubmitSucceeded(ok)
+      handleOpenModal()
     } catch (error) {
-      onOpenPopup({
-        title: '',
-        children: <InfoTooltip state={false} />
-      })
       console.log('ERROR - REGISTER:', error)
     }
+  }
+
+  function handleCloseModal() {
+    setIsModalOpen(false)
+  }
+
+  function handleOpenModal() {
+    setIsModalOpen(true)
   }
 
   return (
     <div className="page">
       <Header />
+      <Popup isOpen={isModalOpen} onClosePopup={handleCloseModal} readOnly>
+        <InfoTooltip state={hasSubmitSucceeded} />
+      </Popup>
       <h2 className="form__title">Inscreva-se</h2>
       <form className="form__content" onSubmit={handleSubmit}>
         <input

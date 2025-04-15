@@ -7,7 +7,8 @@ export default function Popup({
   children,
   isOpen,
   onClosePopup,
-  onSubmit
+  onSubmit,
+  readOnly = false
 }) {
   return (
     <div className={`popup ${isOpen ? 'popup__opened' : ''}`}>
@@ -22,21 +23,22 @@ export default function Popup({
           className="popup__close-btn"
           onClick={onClosePopup}
         >
-          {console.log(name, 'name')}
           <img
             className="popup__close-btn-icon"
             src={closeBtn}
             alt="botão de fechar janela"
           />
         </button>
-        <h2 className="popup__title">{title}</h2>
+        {!readOnly && <h2 className="popup__title">{title}</h2>}
         {children}
-        <button
-          type="submit"
-          className="popup__save-btn popup__button-disabled"
-        >
-          {buttonLabel}
-        </button>
+        {!readOnly && (
+          <button
+            type="submit"
+            className="popup__save-btn popup__button-disabled"
+          >
+            {buttonLabel}
+          </button>
+        )}
       </form>
     </div>
   )

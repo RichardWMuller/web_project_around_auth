@@ -9,8 +9,7 @@ import { api } from '../utils/api'
 import Card from './Card'
 import ImagePopup from './ImagePopup'
 import { useRef } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router'
-import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { checkToken } from '../utils/auth'
 
 export default function Main() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
@@ -27,6 +26,9 @@ export default function Main() {
   const [cardTitle, setCardTitle] = useState('')
 
   useEffect(() => {
+    const token = localStorage.getItem('jwt')
+
+    validateTokenAuth(token)
     getUser()
   }, [])
 
@@ -46,6 +48,11 @@ export default function Main() {
   async function getInitialCards() {
     const cards = await api.getInitialCards()
     setCards(cards)
+  }
+
+  async function validateTokenAuth(token) {
+    const tokenResponse = await checkToken(token)
+    console.log('test1', tokenResponse)
   }
 
   const handleProfileClick = function () {
