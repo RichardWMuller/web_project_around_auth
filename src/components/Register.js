@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router'
 import { useState } from 'react'
 import { register } from '../utils/auth'
-import InfoTooltip from '../components/InfoToolTip'
+import InfoTooltip from '../components/InfoTooltip'
 import Header from './Header'
 import Popup from './Popup'
 
@@ -17,8 +17,13 @@ function Register() {
     try {
       const credentials = { email, password }
       const { ok, data } = await register(credentials)
+
       setHasSubmitSucceeded(ok)
       handleOpenModal()
+
+      if (ok.status != 201) {
+        throw new Error(`Chamada invalida: ${ok.status}`)
+      }
     } catch (error) {
       console.log('ERROR - REGISTER:', error)
     }
@@ -26,6 +31,7 @@ function Register() {
 
   function handleCloseModal() {
     setIsModalOpen(false)
+    navigate('/signin')
   }
 
   function handleOpenModal() {

@@ -1,9 +1,10 @@
 import { Link, useNavigate } from 'react-router'
 import { useState } from 'react'
 import { authorize } from '../utils/auth'
-import InfoTooltip from '../components/InfoToolTip'
+import InfoTooltip from '../components/InfoTooltip'
 import Header from './Header'
 import Popup from './Popup'
+
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -20,13 +21,13 @@ function Login() {
       if (response.status === 401 || response.status === 400) {
         throw new Error(`Chamada inválida: ${response.status}`)
       }
+
       const data = await response.json()
       if (!data?.token) {
         throw new Error(`Token inválida: ${data}`)
       }
       localStorage.setItem('jwt', JSON.stringify(data.token))
       localStorage.setItem('userEmail', email)
-
       navigate('/')
     } catch (error) {
       console.log('ERROR - LOGIN:', error)
