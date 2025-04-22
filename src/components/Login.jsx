@@ -1,11 +1,11 @@
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { authorize } from '../utils/auth'
-import InfoTooltip from '../components/InfoTooltip'
+import InfoTooltip from './InfoTooltip'
 import Header from './Header'
 import Popup from './Popup'
 
-function Login() {
+function Login({ setIsLoggedIn, setUserEmail}) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
@@ -26,8 +26,10 @@ function Login() {
       if (!data?.token) {
         throw new Error(`Token inválida: ${data}`)
       }
-      localStorage.setItem('jwt', JSON.stringify(data.token))
+      localStorage.setItem('jwt', data.token)
       localStorage.setItem('userEmail', email)
+      setUserEmail(email);
+      setIsLoggedIn(true); 
       navigate('/')
     } catch (error) {
       console.log('ERROR - LOGIN:', error)
@@ -36,7 +38,7 @@ function Login() {
 
   return (
     <div className="page">
-      <Header />
+ 
 
       <h2 className="form__title">Entrar</h2>
       <form className="form__content" onSubmit={handleSubmit}>

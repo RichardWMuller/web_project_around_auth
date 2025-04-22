@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { register } from '../utils/auth'
 import InfoTooltip from '../components/InfoTooltip'
@@ -40,7 +40,6 @@ function Register() {
 
   return (
     <div className="page">
-      <Header />
       <Popup isOpen={isModalOpen} onClosePopup={handleCloseModal} readOnly>
         <InfoTooltip state={hasSubmitSucceeded} />
       </Popup>

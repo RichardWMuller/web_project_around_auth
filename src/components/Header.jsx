@@ -1,30 +1,35 @@
 import logo from '../images/Vector.png'
-import { Link, useLocation } from 'react-router'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-export default function Header({ handleLogout }) {
+export default function Header({ handleLogout, userEmail }) {
+  console.log('handleLogout:', handleLogout)
   const location = useLocation()
-  const [userEmail, setUserEmail] = useState('')
+  const navigate = useNavigate()
+  
 
-  useEffect(() => {
-    const email = localStorage.getItem('userEmail')
-    if (email) {
-      setUserEmail(email)
-    }
-  }, [])
+  const handleLogoutClick = () => {
+    console.log('logout clicado')
+    handleLogout()
+    console.log('navegando para /signin')
+    navigate('/signin')
+  }
 
   const getNavLink = () => {
     switch (location.pathname) {
       case '/':
         return (
           <>
-            <p>{userEmail}</p> <Link onClick={handleLogout}>Sair</Link>
+            <p>{userEmail}</p>
+            <Link onClick={handleLogoutClick}>Sair</Link>
           </>
         )
       case '/signup':
         return <Link to="/signin">Faça o Login</Link>
       case '/signin':
         return <Link to="/signup">Entrar</Link>
+        default:
+          return null
     }
   }
 
