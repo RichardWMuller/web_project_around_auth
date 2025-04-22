@@ -10,7 +10,7 @@ function Login({ setIsLoggedIn, setUserEmail}) {
   const [password, setPassword] = useState('')
   const navigate = useNavigate()
 
-  // o manipulador de login
+ 
 
   async function handleSubmit(e) {
     e.preventDefault()

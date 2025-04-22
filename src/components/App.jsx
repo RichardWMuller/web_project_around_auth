@@ -44,11 +44,7 @@ function App() {
       setIsLoading(false)
     }
   }, [])
-  //   if (token && email) {
-  //     setIsLoggedIn(true)
-  //     setUserEmail(email) 
-  //   }
-  // }, [])
+ 
 
   function handleLogout() {
     localStorage.removeItem('userEmail')
