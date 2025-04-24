@@ -2,7 +2,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { register } from '../utils/auth'
 import InfoTooltip from '../components/InfoTooltip'
-import Header from './Header'
 import Popup from './Popup'
 
 function Register() {
@@ -21,7 +20,7 @@ function Register() {
       setHasSubmitSucceeded(ok)
       handleOpenModal()
 
-      if (ok.status != 201) {
+      if (ok.status !== 201) {
         throw new Error(`Chamada invalida: ${ok.status}`)
       }
     } catch (error) {

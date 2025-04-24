@@ -1,9 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { authorize } from '../utils/auth'
-import InfoTooltip from './InfoTooltip'
-import Header from './Header'
-import Popup from './Popup'
+
 
 function Login({ setIsLoggedIn, setUserEmail}) {
   const [email, setEmail] = useState('')

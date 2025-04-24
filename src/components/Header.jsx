@@ -1,6 +1,6 @@
 import logo from '../images/Vector.png'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+
 
 export default function Header({ handleLogout, userEmail }) {
   console.log('handleLogout:', handleLogout)
