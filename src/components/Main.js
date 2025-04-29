@@ -45,7 +45,6 @@ export default function Main() {
 
   async function validateTokenAuth(token) {
     const tokenResponse = await checkToken(token)
-    console.log('test1', tokenResponse)
   }
 
   async function getUser() {
@@ -77,7 +76,6 @@ export default function Main() {
   }
 
   const handleAvatarChange = link => {
-    console.log('avatarFormRef:', avatarFormRef)
     setAvatar(link.target.value)
   }
 

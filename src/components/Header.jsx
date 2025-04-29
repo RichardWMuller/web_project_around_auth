@@ -3,15 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 
 export default function Header({ handleLogout, userEmail }) {
-  console.log('handleLogout:', handleLogout)
+ 
   const location = useLocation()
   const navigate = useNavigate()
   
 
   const handleLogoutClick = () => {
-    console.log('logout clicado')
+   
     handleLogout()
-    console.log('navegando para /signin')
+    
     navigate('/signin')
   }
 
